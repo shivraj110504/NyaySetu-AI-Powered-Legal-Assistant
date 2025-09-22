@@ -1,0 +1,16 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Scale base -->
+  <rect x="8" y="20" width="16" height="2" rx="1" fill="#1e40af"/>
+  
+  <!-- Scale arms -->
+  <path d="M8 20 L16 8 L24 20" stroke="#1e40af" stroke-width="2" fill="none"/>
+  <path d="M8 20 L16 12 L24 20" stroke="#1e40af" stroke-width="1" fill="none"/>
+  
+  <!-- Scale pans -->
+  <ellipse cx="8" cy="18" rx="4" ry="1" fill="#f59e0b"/>
+  <ellipse cx="24" cy="18" rx="4" ry="1" fill="#f59e0b"/>
+  
+  <!-- Justice symbol -->
+  <circle cx="16" cy="6" r="2" fill="#1e40af"/>
+  <path d="M14 6 L18 6 M16 4 L16 8" stroke="#ffffff" stroke-width="1"/>
+</svg>
