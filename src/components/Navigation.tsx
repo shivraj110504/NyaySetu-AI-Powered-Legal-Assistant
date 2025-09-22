@@ -18,8 +18,9 @@ export const Navigation = () => {
 
   const navItems = [
     { name: 'Home', href: '#hero' },
-    { name: 'Demo', href: '#demo' },
     { name: 'Features', href: '#features' },
+    { name: 'Demo', href: '#demo' },
+    { name: 'Advantages', href: '#advantages' },
   ];
 
   return (
@@ -48,11 +49,10 @@ export const Navigation = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
-            <Button className="bg-accent text-accent-foreground hover:bg-accent-light">
-              Get Started
-            </Button>
+          {/* Auth Buttons */}
+          <div className="hidden md:flex items-center gap-3">
+            <Button variant="secondary" className="h-9 px-4">Login</Button>
+            <Button className="bg-accent text-accent-foreground hover:bg-accent-light h-9 px-4">Sign Up</Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -80,9 +80,10 @@ export const Navigation = () => {
                 {item.name}
               </a>
             ))}
-            <Button className="bg-accent text-accent-foreground hover:bg-accent-light mt-4 mx-4">
-              Get Started
-            </Button>
+            <div className="flex items-center gap-3 mt-4 mx-4">
+              <Button variant="secondary" className="h-10 px-4 flex-1">Login</Button>
+              <Button className="bg-accent text-accent-foreground hover:bg-accent-light h-10 px-4 flex-1">Sign Up</Button>
+            </div>
           </div>
         </div>
       </div>

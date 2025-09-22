@@ -2,13 +2,15 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Send, Bot, User, Download, FileText } from "lucide-react";
+import { Send, Bot, User, Upload, FileText } from "lucide-react";
 
 interface Message {
   id: number;
   content: string;
   isUser: boolean;
   timestamp: Date;
+  documentName?: string;
+  isDocumentReview?: boolean;
 }
 
 export const ChatDemo = () => {
@@ -18,6 +20,22 @@ export const ChatDemo = () => {
       content: "Hello! I'm your AI Legal Assistant. I can help you with legal research, document drafting, and case analysis. What would you like to know?",
       isUser: false,
       timestamp: new Date()
+    },
+    {
+      id: 2,
+      content: "Please review this rental agreement draft and point out the important clauses I should be aware of.",
+      isUser: true,
+      timestamp: new Date(),
+      documentName: "Rental_Agreement_Draft.pdf",
+      isDocumentReview: true
+    },
+    {
+      id: 3,
+      content: "Sure! I've reviewed your rental agreement draft. Here are the key points:\n- Clause 3: You have to pay the full rental amount in advance each month.\n- Clause 5: The security deposit is non-refundable — you may want to negotiate this.\n- Clause 7: Maintenance responsibilities are entirely on the tenant; make sure this is acceptable.\n- Clause 10: A penalty for late payment is mentioned, but no grace period is specified.\n\n⚖️ Suggestion: These points should be clarified to avoid disputes.\n\nOther important checks in rental agreements include:\n- Confirm the lock-in period to avoid penalties for early exit.\n- Verify if the landlord can increase rent mid-term.\n- Ensure clarity on usage rights (parking, shared areas).\n- Check the termination notice period — usually 1–3 months.",
+      isUser: false,
+      timestamp: new Date(),
+      documentName: "Rental_Agreement_Draft.pdf",
+      isDocumentReview: true
     }
   ]);
   const [inputValue, setInputValue] = useState("");
@@ -29,6 +47,13 @@ export const ChatDemo = () => {
     "I've prepared a legal notice draft for you. The document includes proper legal formatting and citations. Would you like me to explain any specific clauses?",
     "Based on Indian legal provisions, here's what you need to know about your rights in this matter. I can also help you understand the procedural requirements.",
     "I've researched the applicable laws for your situation. Here are the key statutes and their implications for your case."
+  ];
+
+  const documentReviewResponses = [
+    "In point no 3, you have to pay full amount and all other terms which are in rental agreement. This clause ensures timely payment and covers all associated costs.",
+    "The security deposit clause in section 5 requires 2 months advance payment, which is standard practice for rental agreements in India.",
+    "The maintenance responsibility outlined in clause 7 clearly states that minor repairs are tenant's responsibility while major structural issues are landlord's duty.",
+    "The termination notice period of 30 days mentioned in section 9 is legally compliant with Indian rental laws and provides adequate time for both parties."
   ];
 
 
@@ -48,11 +73,16 @@ export const ChatDemo = () => {
 
     // Simulate AI response delay
     setTimeout(() => {
+      const isDocumentReview = inputValue.toLowerCase().includes('review') || inputValue.toLowerCase().includes('rental');
       const botMessage: Message = {
         id: messages.length + 2,
-        content: demoResponses[Math.floor(Math.random() * demoResponses.length)],
+        content: isDocumentReview 
+          ? documentReviewResponses[Math.floor(Math.random() * documentReviewResponses.length)]
+          : demoResponses[Math.floor(Math.random() * demoResponses.length)],
         isUser: false,
-        timestamp: new Date()
+        timestamp: new Date(),
+        documentName: isDocumentReview ? "Rental Agreement Draft" : undefined,
+        isDocumentReview: isDocumentReview
       };
       setMessages(prev => [...prev, botMessage]);
       setIsTyping(false);
@@ -70,10 +100,8 @@ export const ChatDemo = () => {
     <section id="demo" className="py-24 bg-muted/50">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold font-display mb-6">Interactive Legal AI Demo</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Experience the power of our AI legal assistant. Ask questions, request document drafts, or seek legal guidance.
-          </p>
+          <h2 className="text-4xl font-bold font-display mb-6">NyaySetu AI Chatbot <span className="italic">(Demo)</span></h2>
+          <p className="text-muted-foreground">To act as a legal guidance chatbot that explains complex IPC sections, legal terms, and document purposes in simple English. It also helps with incident analysis, document explainability, and basic legal research, guiding users toward the correct next steps.</p>
         </div>
 
         <div className="max-w-4xl mx-auto">
@@ -92,12 +120,8 @@ export const ChatDemo = () => {
               
               <div className="flex space-x-2">
                 <Button size="sm" variant="secondary" className="text-xs">
-                  <Download className="w-4 h-4 mr-1" />
+                  <Upload className="w-4 h-4 mr-1" />
                   Export
-                </Button>
-                <Button size="sm" variant="secondary" className="text-xs">
-                  <FileText className="w-4 h-4 mr-1" />
-                  PDF
                 </Button>
               </div>
             </div>
@@ -114,7 +138,13 @@ export const ChatDemo = () => {
                       <Bot className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
                     )}
                     <div className="flex-1">
-                      <p className="text-sm">{message.content}</p>
+                      {message.isDocumentReview && message.documentName && (
+                        <div className="flex items-center space-x-2 mb-2 p-2 bg-muted/50 rounded-lg">
+                          <FileText className="w-4 h-4 text-accent" />
+                          <span className="text-sm font-medium text-accent">{message.documentName}</span>
+                        </div>
+                      )}
+                      <div className="text-sm whitespace-pre-line">{message.content}</div>
                       <span className="text-xs opacity-70 mt-1 block">
                         {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </span>
@@ -160,7 +190,7 @@ export const ChatDemo = () => {
                   <Send className="w-4 h-4" />
                 </Button>
               </div>
-              <p className="text-xs text-muted-foreground mt-2">
+              <p className="text-xs text-red-600 mt-2">
                 This is a demo. Responses are simulated for demonstration purposes.
               </p>
             </div>

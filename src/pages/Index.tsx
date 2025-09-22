@@ -3,6 +3,9 @@ import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
 import { ChatDemo } from "@/components/ChatDemo";
+import { Advantages } from "@/components/Advantages";
+import { StepDemo } from "@/components/StepDemo";
+import { DraftGenerator } from "@/components/DraftGenerator";
 import { Footer } from "@/components/Footer";
 
 const Index = () => {
@@ -35,8 +38,11 @@ const Index = () => {
         <section id="hero">
           <Hero />
         </section>
-        <ChatDemo />
         <Features />
+        <ChatDemo />
+        <StepDemo />
+        <DraftGenerator />
+        <Advantages />
       </main>
       <Footer />
     </div>

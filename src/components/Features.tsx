@@ -1,44 +1,36 @@
-import { Brain, FileSearch, Zap, Shield, Users, Clock } from "lucide-react";
+import { Brain, FileSearch, Zap, Shield, Users, Clock, Scale, FileText, MessageCircle, Gavel } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import featuresImage from "@/assets/features-bg.jpg";
 
 export const Features = () => {
+  const handleScrollTo = (sectionId: string) => {
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const features = [
     {
-      icon: Brain,
-      title: "Agentic AI Intelligence",
-      description: "Advanced AI agents that understand legal contexts and provide intelligent recommendations.",
-      color: "text-accent"
-    },
-    {
-      icon: FileSearch,
-      title: "Smart Legal Research",
-      description: "Comprehensive case law analysis with AI-powered insights and precedent matching.",
+      icon: MessageCircle,
+      title: "Chatbot",
+      description: "To act as a legal guidance chatbot that explains complex IPC sections, legal terms, and document purposes in simple English. It also helps with incident analysis, document explainability, and basic legal research, guiding users toward the correct next steps.",
       color: "text-success"
     },
     {
-      icon: Zap,
-      title: "Automated Documentation",
-      description: "Generate legal documents, contracts, and notices with intelligent templates.",
+      icon: Scale,
+      title: "IPC Section Prediction",
+      description: "Automatically predict the most relevant IPC Section(s) based on a user’s incident description provided in multiple formats. Ensures citizens understand which laws apply.",
+      color: "text-accent"
+    },
+    {
+      icon: FileText,
+      title: "Legal Draft Generator",
+      description: "Automate the creation of legal documents using predefined templates and dynamic questioning.",
       color: "text-secondary"
     },
     {
-      icon: Shield,
-      title: "Secure & Compliant",
-      description: "Bank-grade security with full compliance to Indian legal data protection standards.",
+      icon: Gavel,
+      title: "Law and Judgement Updation Automate",
+      description: "Automatically fetch legal news, updates, and judgments; deliver via website or automated newsletter.",
       color: "text-accent-light"
-    },
-    {
-      icon: Users,
-      title: "Multi-Agent Collaboration",
-      description: "Coordinated AI agents working together to solve complex legal challenges.",
-      color: "text-primary-light"
-    },
-    {
-      icon: Clock,
-      title: "Real-time Processing",
-      description: "Instant legal analysis and document processing with live updates and notifications.",
-      color: "text-success-light"
     }
   ];
 
@@ -64,7 +56,7 @@ export const Features = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
           {features.map((feature, index) => {
             const IconComponent = feature.icon;
             return (
@@ -72,6 +64,15 @@ export const Features = () => {
                 key={index} 
                 className="feature-card p-8 border-0 group cursor-pointer"
                 style={{ animationDelay: `${index * 0.1}s` }}
+                onClick={
+                  feature.title === "Chatbot"
+                    ? () => handleScrollTo('demo')
+                    : feature.title === "IPC Section Prediction"
+                      ? () => handleScrollTo('step-demo')
+                      : feature.title === "Legal Draft Generator"
+                        ? () => handleScrollTo('draft-generator')
+                        : undefined
+                }
               >
                 <div className="relative z-10">
                   <div className="mb-6">

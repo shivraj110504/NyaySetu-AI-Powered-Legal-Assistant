@@ -55,6 +55,24 @@ export const Hero = () => {
           <p className="hero-subtitle max-w-4xl mx-auto">
             AI-Powered Justice for Every Citizen
           </p>
+          <div className="flex flex-wrap justify-center items-center gap-6 mt-6 text-white/90">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 bg-accent rounded-full"></span>
+              <span className="text-sm font-medium">Chatbot</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 bg-accent rounded-full"></span>
+              <span className="text-sm font-medium">IPC Section Prediction</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 bg-accent rounded-full"></span>
+              <span className="text-sm font-medium">Legal Draft Generator</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 bg-accent rounded-full"></span>
+              <span className="text-sm font-medium">Law & Judgement Updates</span>
+            </div>
+          </div>
           <div className="w-24 h-1 bg-gradient-to-r from-accent to-accent-light mx-auto mt-6 rounded-full" />
         </div>
 
